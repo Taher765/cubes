@@ -1,0 +1,15 @@
+* {
+  direction: rtl;
+}
+.image-card {
+  height: 400px;
+  width: 100%;
+}
+.image-card .card-img-top {
+  height: 100%;
+  width: 100%;
+}
+
+.list-group-item {
+  border-bottom: 1px solid #dee2e6 !important;
+}

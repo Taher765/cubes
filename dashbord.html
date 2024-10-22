@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashbord</title>
+    <!-- STart Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:slnt,wght@4,200..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- // BOOTSTRAP  -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- Castum Style -->
+    <link rel="stylesheet" href="css/dashbord.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1 class="p-3 text-center bg-light">اضافه تكعيب جديد</h1>
+
+    <section class="dashbord">
+      <div class="container">
+        <form class="mt-5">
+          <h4>بيانات السياره</h4>
+          <div class="form-group border p-3 mb-3 rounded">
+            <div class="row">
+              <div class="col-md-3 mb-md-0 mb-sm-3 mb-lg-0">
+                <div class="input-group d-flex">
+                  <button
+                    class="btn btn-sm btn-outline-secondary dropdown-toggle order-1"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    كعب
+                  </button>
+                  <ul class="dropdown-menu p-2 text-end">
+                    <li>
+                      <input
+                        type="text"
+                        class="form-control input-calc"
+                        id="heightCar"
+                        placeholder="الطول"
+                      />
+                    </li>
+                    <li>
+                      <input
+                        type="text"
+                        class="form-control my-1 input-calc"
+                        id="widthCar"
+                        placeholder="العرض"
+                      />
+                    </li>
+                    <li>
+                      <input
+                        type="text"
+                        class="form-control input-calc"
+                        id="lengthCar"
+                        placeholder="الارتفاع"
+                      />
+                    </li>
+                    <li class="mt-1">
+                      <input class="korek" type="checkbox" id="korekCar" />
+                      <label for="korek">يوجد كوريك</label>
+                    </li>
+                  </ul>
+                  <input
+                    type="text"
+                    id="carNumber"
+                    placeholder=" ادخل رقم السياره"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-3 mb-md-0 mb-sm-3 mb-lg-0">
+                <input
+                  type="text"
+                  id="carLetters"
+                  placeholder=" ادخل حروف السياره"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-md-3 mb-md-0 mb-sm-3 mb-lg-0">
+                <div class="input-group d-flex">
+                  <button
+                    class="btn btn-sm btn-outline-secondary dropdown-toggle order-1"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    كعب
+                  </button>
+                  <ul class="dropdown-menu p-2 text-end">
+                    <li>
+                      <input
+                        type="text"
+                        class="form-control input-calc"
+                        id="heightTrailer"
+                        placeholder="الطول"
+                      />
+                    </li>
+                    <li>
+                      <input
+                        type="text"
+                        class="form-control my-1 input-calc"
+                        id="widthTrailer"
+                        placeholder="العرض"
+                      />
+                    </li>
+                    <li>
+                      <input
+                        type="text"
+                        class="form-control input-calc"
+                        id="lengthTrailer"
+                        placeholder="الارتفاع"
+                      />
+                    </li>
+                    <li class="mt-1">
+                      <input class="korek" type="checkbox" id="korekTrailer" />
+                      <label for="korek">يوجد كوريك</label>
+                    </li>
+                  </ul>
+                  <input
+                    type="text"
+                    id="trailerNumber"
+                    placeholder=" ادخل رقم المقطوره "
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <input
+                  type="text"
+                  id="trailerLetters"
+                  placeholder=" ادخل حروف المقطوره "
+                  class="form-control"
+                />
+              </div>
+              <div
+                class="col-12 mt-2 d-flex align-items-center justify-content-between"
+              >
+                <label class="formFile" for="formFile">
+                  <img
+                    src="images/360_F_107579101_QVlTG43Fwg9Q6ggwF436MPIBTVpaKKtb.jpg"
+                    width="40px"
+                    height="40px"
+                    alt=""
+                  />
+                  <span>صوره السياره</span>
+                  <input
+                    class="form-control"
+                    id="formFile"
+                    type="file"
+                    name="formFile"
+                    title="اختار صوره"
+                    accept="image/*"
+                    hidden
+                  />
+                </label>
+
+                <div id="preview"></div>
+              </div>
+            </div>
+          </div>
+          <h4>بيانات التكعيب</h4>
+          <div class="form-group border p-3 mb-2 rounded">
+            <div class="row">
+              <div class="col-md-6 mb-md-0 mb-sm-3 mb-lg-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="القائم بالتكعيب"
+                  id="engCube"
+                />
+              </div>
+              <div class="col-md-6 mb-md-0 mb-sm-3 mb-lg-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="تكعيب السياره"
+                  id="cubeCar"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <h4>ملحوظه</h4>
+              <textarea
+                id="about"
+                class="form-control"
+                placeholder="ملحوظه"
+                style="height: 80px"
+              ></textarea>
+            </div>
+          </div>
+          <button id="submit" class="btn btn-primary mt-3">
+            اضاقه السياره
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Start Scripts -->
+    <!-- // Start Bootstrap -->
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/moment.js"></script>
+    <!-- // Start Dashbord  -->
+    <script src="js/dashbord.js"></script>
+
+    <!--// End Scripts -->
+  </body>
+</html>

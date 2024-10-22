@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cars Cubes</title>
+
+    <!-- STart Fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:slnt,wght@4,200..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- // BOOTSTRAP  -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- Castum Style -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Start Small Banen -->
+    <h1 class="p-3 text-center bg-light">تكعيبات السيارات (الكتيبه 70 طرق)</h1>
+
+    <!-- Start Search Bar  -->
+    <div class="search-bar">
+      <div class="container">
+        <div class="search">
+          <div class="form-grooup d-flex gap-2 my-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="ابحث عن ما تريد ...."
+              id="search"
+            />
+            <button id="searchBtn" class="btn btn-primary">ابحث</button>
+          </div>
+          <!-- 
+          <ul class="searchBox shadow">
+            <li class="p-2 mb-2 d-flex">
+                <div></div>
+            </li>
+            <li class="p-2 mb-2">taher</li>
+            <li class="p-2 mb-2">taher</li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+    <!--// End Search Bar -->
+    <!-- Start table Cubes -->
+    <div>
+      <h3 class="text-center my-4">جدول التكعيبات</h3>
+      <div class="container">
+        <div class="table-responsive">
+          <table
+            class="table text-center table-hover align-middle table-bordered"
+          >
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">رقم السيارة</th>
+                <th scope="col">حروف السيارة</th>
+                <th scope="col">رقم المقطوره</th>
+                <th scope="col">حروف المقطوره</th>
+                <th scope="col">تكعيب السياره</th>
+                <th scope="col">القائم بالتكعيب</th>
+                <th scope="col">تاريخ التكعيب</th>
+                <th scope="col">ملحوظه</th>
+                <th scope="col">تفاصيل</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- // End table Cubes -->
+
+    <!-- Start Pagenation -->
+
+    <div class="container mt-5 text-center">
+      <div dir="ltr" class="d-flex justify-content-center">
+        <ul class="pagination">
+          <!-- // btn Prev // -->
+          <li class="page-item">
+            <button class="page-link prev active">السابق</button>
+          </li>
+          <ul class="pagination-ul d-flex"></ul>
+          <!-- // btn next // -->
+          <li class="page-item">
+            <button class="page-link next active">التالي</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- // End Pagenation  -->
+
+    <!-- Start Scripts -->
+    <!-- // Start Bootstrap -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- // Start Main Js -->
+    <script src="js/main.js"></script>
+    <!--// End Scripts -->
+  </body>
+</html>
