@@ -74,6 +74,8 @@ async function addCar(e) {
         },
         body: JSON.stringify(newCube),
       });
+
+      window.location = "index.html";
     } catch (err) {
       console.log("ERORR ===> ", err);
     }

@@ -22,6 +22,7 @@ addEventListener("load", () => {
 
 // Start Fetch data from the server
 async function getCubes(current_page) {
+  spinerLoader("load");
   try {
     const res = await fetch(apiRender);
     const cubes = await res.json();
@@ -30,9 +31,17 @@ async function getCubes(current_page) {
     console.log(cubes);
 
     displayCubes(cubes);
+    lodaing = false;
   } catch (err) {
     console.log("Error Api =====>", err);
+    lodaing = false;
+  } finally {
+    spinerLoader("hidden");
   }
+}
+
+function spinerLoader(status) {
+  document.querySelector(".overlay").classList.add(status);
 }
 
 // Start Function Display Data
