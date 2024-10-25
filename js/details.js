@@ -3,9 +3,10 @@ const details = document.querySelector(".details");
 const searchParams = new URLSearchParams(window.location.search);
 
 let _id = searchParams.get("id");
+const apiRender = "https://tset-19uo.onrender.com/cubes";
 
 async function getSingleCar() {
-  const res = await fetch(`http://localhost:3002/cubes/${_id}`);
+  const res = await fetch(`${apiRender}/${_id}`);
   const data = await res.json();
   displaySingleCar(data);
 }

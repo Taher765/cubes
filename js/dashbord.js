@@ -19,8 +19,10 @@ const about = document.getElementById("about");
 const submit = document.getElementById("submit");
 const formFile = document.getElementById("formFile");
 let imageUrl = "";
+
 // var api
-const api = "http://localhost:3002/cubes";
+const api = "http://localhost:3000/cubes";
+const apiRender = "https://tset-19uo.onrender.com/cubes";
 
 // Upload Image
 formFile.addEventListener("change", uploadPhoto);
@@ -63,10 +65,13 @@ async function addCar(e) {
     about: about.value || "لا يوجد",
   };
 
-  if (validImage()) {
+  if (true) {
     try {
-      await fetch(api, {
+      await fetch(apiRender, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(newCube),
       });
     } catch (err) {

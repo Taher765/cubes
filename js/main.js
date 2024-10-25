@@ -11,7 +11,8 @@ let total_page;
 let active_page = "";
 
 // var api
-const api = "http://localhost:3002/cubes";
+const api = "http://localhost:3000/cubes";
+const apiRender = "https://tset-19uo.onrender.com/cubes";
 
 // Start Loading Page
 
@@ -22,14 +23,15 @@ addEventListener("load", () => {
 // Start Fetch data from the server
 async function getCubes(current_page) {
   try {
-    const res = await fetch(api);
+    const res = await fetch(apiRender);
     const cubes = await res.json();
     total_page = cubes.length;
     console.log(cubes.length);
+    console.log(cubes);
 
     displayCubes(cubes);
   } catch (err) {
-    alert("Error =====>", err);
+    console.log("Error Api =====>", err);
   }
 }
 
@@ -58,9 +60,13 @@ function displayCubes(cubes) {
 // START SEARCH FUNCTION
 searchBtn.addEventListener("click", searchCar);
 async function searchCar() {
-  const res = await fetch(api + `?car.number=${search.value}`);
-  const data = await res.json();
-  displayCubes(data);
+  try {
+    const res = await fetch(apiRender + `?car.number=${search.value}`);
+    const data = await res.json();
+    displayCubes(data);
+  } catch (err) {
+    console.log(err);
+  }
 }
 // END SEARCH FUNCTION
 
