@@ -19,6 +19,8 @@ const about = document.getElementById("about");
 const submit = document.getElementById("submit");
 const formFile = document.getElementById("formFile");
 let imageUrl = "";
+let calcCarCube = null;
+let calcTrailer = null;
 
 // var api
 const api = "http://localhost:3000/cubes";
@@ -50,6 +52,8 @@ async function addCar(e) {
       height: heightCar.value,
       width: widthCar.value,
       length: lengthCar.value,
+      korek: korekCar.checked ? true : false,
+      cubes: 0,
     },
     trailer: {
       number: trailerNumber.value,
@@ -57,6 +61,8 @@ async function addCar(e) {
       height: heightTrailer.value,
       width: widthTrailer.value,
       length: lengthTrailer.value,
+      korek: korekTrailer.checked ? true : false,
+      cubes: 0,
     },
     cube: +cubeCar.value || cubingCalculation(),
     date: moment().locale("ar_SA").format("LLLL"),
@@ -75,7 +81,7 @@ async function addCar(e) {
         body: JSON.stringify(newCube),
       });
 
-      window.location = "index.html";
+      // window.location = "index.html";
     } catch (err) {
       console.log("ERORR ===> ", err);
     }
@@ -85,22 +91,22 @@ async function addCar(e) {
 // START Function Cubing Calculation
 function cubingCalculation() {
   // / clac Car
-  let calcCar =
+  calcCarCube =
     Number(widthCar.value) * Number(lengthCar.value) * Number(heightCar.value);
   // clac trailer
-  let calcTrailer =
+  calcTrailer =
     Number(widthTrailer.value) *
     Number(lengthTrailer.value) *
     Number(heightTrailer.value);
   // Korec Car Checked
   if (korekCar.checked) {
-    calcCar = calcCar - 0.5;
+    calcCarCube = calcCarCube - 0.5;
   }
   // Korec trailer Checked
   if (korekTrailer.checked) {
     calcTrailer = calcTrailer - 0.5;
   }
-  let total = calcCar + calcTrailer;
+  let total = calcCarCube + calcTrailer;
   return total;
 }
 

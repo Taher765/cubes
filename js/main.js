@@ -6,8 +6,14 @@ const searchBtn = document.querySelector("#searchBtn");
 let paginationUl = document.querySelector(".pagination-ul");
 let prev = document.querySelector(".prev");
 let next = document.querySelector(".next");
-let current_page = 1;
+
+// var pagination
+// ?_page = 2 & _limit=5
+
 let total_page;
+
+let current_page = 1;
+
 let active_page = "";
 
 // var api
@@ -21,14 +27,14 @@ addEventListener("load", () => {
 });
 
 // Start Fetch data from the server
-async function getCubes(current_page) {
+async function getCubes(page = 1) {
+  // Spiner Loader // Loading
   spinerLoader("load");
   try {
-    const res = await fetch(apiRender);
+    const res = await fetch(`${apiRender}?_page=${page}&_limit=5`);
     const cubes = await res.json();
+
     total_page = cubes.length;
-    console.log(cubes.length);
-    console.log(cubes);
 
     displayCubes(cubes);
     lodaing = false;
@@ -69,10 +75,15 @@ function displayCubes(cubes) {
 // START SEARCH FUNCTION
 searchBtn.addEventListener("click", searchCar);
 async function searchCar() {
+  //car.number=
   try {
-    const res = await fetch(apiRender + `?car.number=${search.value}`);
-    const data = await res.json();
-    displayCubes(data);
+    if (search.value == "") {
+      getCubes();
+    } else {
+      const res = await fetch(apiRender + `?car.number=${search.value}`);
+      const data = await res.json();
+      displayCubes(data);
+    }
   } catch (err) {
     console.log(err);
   }
@@ -106,6 +117,7 @@ function create_pages(current_page) {
   if (current_page == total_page) {
     after_page = current_page;
   }
+  getCubes(current_page);
 
   for (let i = before_page; i <= after_page; i++) {
     if (current_page == i) {

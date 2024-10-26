@@ -4,11 +4,23 @@ const searchParams = new URLSearchParams(window.location.search);
 
 let _id = searchParams.get("id");
 const apiRender = "https://tset-19uo.onrender.com/cubes";
+const api = "http://localhost:3000/cubes";
 
 async function getSingleCar() {
-  const res = await fetch(`${apiRender}/${_id}`);
-  const data = await res.json();
-  displaySingleCar(data);
+  spinerLoader("load");
+  try {
+    const res = await fetch(`${apiRender}/${_id}`);
+    const data = await res.json();
+    displaySingleCar(data);
+  } catch (err) {
+    console.log("err =>", err);
+  } finally {
+    spinerLoader("hidden");
+  }
+}
+
+function spinerLoader(status) {
+  document.querySelector(".overlay").classList.add(status);
 }
 
 function displaySingleCar(car) {
