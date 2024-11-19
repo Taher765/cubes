@@ -2,19 +2,6 @@
 const tbody = document.querySelector("#tbody");
 const search = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
-// var Pagination
-let paginationUl = document.querySelector(".pagination-ul");
-let prev = document.querySelector(".prev");
-let next = document.querySelector(".next");
-
-// var pagination
-// ?_page = 2 & _limit=5
-
-let total_page;
-
-let current_page = 1;
-
-let active_page = "";
 
 // var api
 const api = "http://localhost:3000/cubes";
@@ -23,34 +10,65 @@ const apiRender = "https://tset-19uo.onrender.com/cubes";
 // Start Loading Page
 
 addEventListener("load", () => {
-  getCubes();
+  // getCubes(1);
 });
-
-// Start Fetch data from the server
-async function getCubes(page = 1) {
-  // Spiner Loader // Loading
-  spinerLoader("load");
-  try {
-    const res = await fetch(`${apiRender}?_page=${page}&_limit=5`);
-    const cubes = await res.json();
-
-    total_page = cubes.length;
-
-    displayCubes(cubes);
-    lodaing = false;
-  } catch (err) {
-    console.log("Error Api =====>", err);
-    lodaing = false;
-  } finally {
-    spinerLoader("hidden");
-  }
-}
-
+//////////////////////////////////////;
+/////////// START SPINAER LOADER
+/////////////////////////////////////;
 function spinerLoader(status) {
   document.querySelector(".overlay").classList.add(status);
 }
 
-// Start Function Display Data
+//////////////////////////////////////;
+/// START FETCH DATA FROM THE SERVER
+/////////////////////////////////////;
+async function getCubes(page, limit) {
+  // Spiner Loader // Loading
+  spinerLoader("load");
+  try {
+    const res = await fetch(`${api}?_page=${page}&_limit=${limit}`);
+    const data = await res.json();
+    const totalItems = res.headers.get("X-Total-Count"); // 41;
+    displayCubes(data);
+    lodaing = false;
+    return totalItems;
+  } catch (err) {
+    console.log("Error Api =====>", err);
+    lodaing = false;
+  } finally {
+    // Spiner Loader // Loading
+    spinerLoader("hidden");
+  }
+}
+
+//////////////////////////////////////;
+/////////// START PAGINATION
+/////////////////////////////////////;
+
+dataPagination();
+async function dataPagination() {
+  const data = await getCubes();
+  const limit = 20;
+
+  $("#pagination").pagination({
+    dataSource: new Array(+data), // تحديد مصدر البيانات
+    pageSize: limit, // عدد العناصر في كل صفحة
+    pageRange: 3, // عدد الروابط حول الصفحة الحالية
+    showPageNumbers: true, // إظهار أرقام الصفحات
+    showPrevious: true, // إظهار زر "السابق"
+    showNext: true, // إظهار زر "التالي"
+    callback: (data, pagination) => {
+      console.log(pagination);
+
+      // تحديث المحتوى بناءً على الصفحة الحالية
+      getCubes(pagination.pageNumber, limit);
+    },
+  });
+}
+
+//////////////////////////////////////;
+/////////// START Display DATA
+/////////////////////////////////////;
 function displayCubes(cubes) {
   let content = "";
   cubes.forEach((cube, index) => {
@@ -72,15 +90,16 @@ function displayCubes(cubes) {
   tbody.innerHTML = content;
 }
 
-// START SEARCH FUNCTION
+//////////////////////////////////////;
+/////////// START SEARCH FUNCTION
+/////////////////////////////////////;
 searchBtn.addEventListener("click", searchCar);
 async function searchCar() {
-  //car.number=
   try {
     if (search.value == "") {
       getCubes();
     } else {
-      const res = await fetch(apiRender + `?car.number=${search.value}`);
+      const res = await fetch(api + `?car.number=${search.value}`);
       const data = await res.json();
       displayCubes(data);
     }
@@ -88,74 +107,3 @@ async function searchCar() {
     console.log(err);
   }
 }
-// END SEARCH FUNCTION
-
-// START DISPLAY SEARCH
-
-// END DISPLAY SEARCH
-
-//////////////////////////////////////;
-/////////// START PAGINATION
-/////////////////////////////////////;
-
-function create_pages(current_page) {
-  paginationUl.innerHTML = "";
-
-  let before_page = current_page - 1;
-  let after_page = current_page + 1;
-
-  if (current_page == 2) {
-    before_page = current_page - 1;
-  }
-  if (current_page == 1) {
-    before_page = current_page;
-  }
-
-  if (current_page == total_page - 1) {
-    after_page = current_page + 1;
-  }
-  if (current_page == total_page) {
-    after_page = current_page;
-  }
-  getCubes(current_page);
-
-  for (let i = before_page; i <= after_page; i++) {
-    if (current_page == i) {
-      active_page = "active";
-    } else {
-      active_page = "";
-    }
-    paginationUl.innerHTML += `<li onclick="create_pages(${i})" class="page-item"><a class="page-link ${active_page}">${i}</a></li>`;
-  }
-
-  // Next and Previous Button Functionality.
-
-  prev.onclick = function () {
-    current_page--;
-    create_pages(current_page);
-  };
-  if (current_page <= 1) {
-    prev.disabled = true;
-    prev.classList.add("disabled");
-  } else {
-    prev.disabled = false;
-    prev.classList.remove("disabled");
-  }
-
-  next.onclick = function () {
-    current_page++;
-    create_pages(current_page);
-  };
-  if (current_page >= total_page) {
-    next.disabled = true;
-    next.classList.add("disabled");
-  } else {
-    next.disabled = false;
-    next.classList.remove("disabled");
-  }
-}
-
-create_pages(current_page);
-/////////////////////////////////
-//////////// END PAGINATION
-/////////////////////////////////

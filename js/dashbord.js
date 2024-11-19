@@ -73,7 +73,7 @@ async function addCar(e) {
 
   if (true) {
     try {
-      await fetch(apiRender, {
+      await fetch(api, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
