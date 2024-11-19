@@ -26,7 +26,7 @@ async function getCubes(page, limit) {
   // Spiner Loader // Loading
   spinerLoader("load");
   try {
-    const res = await fetch(`${api}?_page=${page}&_limit=${limit}`);
+    const res = await fetch(`${apiRender}?_page=${page}&_limit=${limit}`);
     const data = await res.json();
     const totalItems = res.headers.get("X-Total-Count"); // 41;
     displayCubes(data);
@@ -99,7 +99,7 @@ async function searchCar() {
     if (search.value == "") {
       getCubes();
     } else {
-      const res = await fetch(api + `?car.number=${search.value}`);
+      const res = await fetch(apiRender + `?car.number=${search.value}`);
       const data = await res.json();
       displayCubes(data);
     }
