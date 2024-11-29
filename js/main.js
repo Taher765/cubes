@@ -4,8 +4,8 @@ const search = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
 
 // var api
-const apiRender = "http://localhost:3000/cubes";
-// const apiRender = "https://tset-19uo.onrender.com/cubes";
+// const apiRender = "http://localhost:3000/cubes";
+const apiRender = "https://tset-19uo.onrender.com/cubes";
 
 // Start Loading Page
 

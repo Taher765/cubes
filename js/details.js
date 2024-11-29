@@ -3,8 +3,8 @@ const details = document.querySelector(".details");
 const searchParams = new URLSearchParams(window.location.search);
 
 let _id = searchParams.get("id");
-const apiRender = "http://localhost:3000/cubes";
-// const apiRender = "https://tset-19uo.onrender.com/cubes";
+// const apiRender = "http://localhost:3000/cubes";
+const apiRender = "https://tset-19uo.onrender.com/cubes";
 
 async function getSingleCar() {
   spinerLoader("load");

@@ -31,8 +31,8 @@ let calcCarCube = null;
 let calcTrailer = null;
 
 // var api
-const apiRender = "http://localhost:3000/cubes";
-// const apiRender = "https://tset-19uo.onrender.com/cubes";
+// const apiRender = "http://localhost:3000/cubes";
+const apiRender = "https://tset-19uo.onrender.com/cubes";
 
 //////////////////////////////////////;
 ///////////// Upload Image
