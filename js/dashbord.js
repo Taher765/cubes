@@ -13,37 +13,56 @@ const widthTrailer = document.getElementById("widthTrailer");
 const lengthTrailer = document.getElementById("lengthTrailer");
 const korekTrailer = document.getElementById("korekTrailer");
 // DATA CUBES
+const formSelect = document.getElementById("form-select");
 const engCube = document.getElementById("engCube");
 const cubeCar = document.getElementById("cubeCar");
 const about = document.getElementById("about");
 const submit = document.getElementById("submit");
 const formFile = document.getElementById("formFile");
+const preview = document.getElementById("preview");
+// GET SINGEL CAR
+const searchParams = new URLSearchParams(window.location.search);
+let _id = searchParams.get("id");
+
+// vaarrs
+let create = true;
 let imageUrl = "";
 let calcCarCube = null;
 let calcTrailer = null;
 
 // var api
-const api = "http://localhost:3000/cubes";
-const apiRender = "https://tset-19uo.onrender.com/cubes";
+const apiRender = "http://localhost:3000/cubes";
+// const apiRender = "https://tset-19uo.onrender.com/cubes";
 
-// Upload Image
+//////////////////////////////////////;
+///////////// Upload Image
+/////////////////////////////////////;
 formFile.addEventListener("change", uploadPhoto);
 function uploadPhoto() {
   const file = formFile.files[0];
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = function (event) {
-    const preview = document.getElementById("preview");
     preview.innerHTML = `<img src="${event.target.result}"class="rounded-circle" alt="Preview" style="width: 50px;height: 50px;">`;
     imageUrl = event.target.result;
   };
 }
 
-// FUNCTION ADD CAR TO DATABASE
-submit.addEventListener("click", addCar);
+//////////////////////////////////////;
+///////////// ADD CAR TO DATABASE
+/////////////////////////////////////;
+submit.addEventListener("click", (e) => {
+  if (create) {
+    addCar(e);
+  } else {
+    editCar(e);
+  }
+});
 
 async function addCar(e) {
   e.preventDefault();
+  console.log(formSelect.value);
+
   const newCube = {
     id: Math.random().toString(16).slice(2),
     car: {
@@ -68,6 +87,7 @@ async function addCar(e) {
     date: moment().locale("ar_SA").format("LLLL"),
     image_url: imageUrl,
     eng: engCube.value,
+    position: formSelect.value,
     about: about.value || "لا يوجد",
   };
 
@@ -81,14 +101,16 @@ async function addCar(e) {
         body: JSON.stringify(newCube),
       });
 
-      // window.location = "index.html";
+      window.location = "index.html";
     } catch (err) {
       console.log("ERORR ===> ", err);
     }
   }
 }
 
-// START Function Cubing Calculation
+//////////////////////////////////////;
+///////////// Cubing Calculation
+/////////////////////////////////////;
 function cubingCalculation() {
   // / clac Car
   calcCarCube =
@@ -126,9 +148,9 @@ korek.forEach((box) => {
   });
 });
 
-// END Function Cubing Calculation
-
-// STRAT VALIDATION
+//////////////////////////////////////;
+///////////// STRAT VALIDATION
+/////////////////////////////////////;
 // Car Number
 carNumber.addEventListener("keyup", () => validCarNumber(carNumber));
 
@@ -235,4 +257,105 @@ function validImage() {
   }
 }
 
-// END VALIDTION
+/////////////////////////////////
+//////////// Edit Car
+////////////////////////////////
+
+// Get Single Car
+
+if (_id != null) {
+  gitSingleCar(_id);
+}
+
+async function gitSingleCar(_id) {
+  try {
+    const res = await fetch(`${apiRender}/${_id}`);
+    const data = await res.json();
+    displayDataInForm(data);
+  } catch (err) {
+    console.log("err =>", err);
+  }
+}
+
+// Dispaly Data in Form
+
+function displayDataInForm(car) {
+  create = false;
+  submit.innerHTML = "تعديل التكعيب";
+  // Car
+  carNumber.value = car.car.number;
+  carLetters.value = car.car.letters;
+  heightCar.value = car.car.height;
+  widthCar.value = car.car.width;
+  lengthCar.value = car.car.length;
+  korekCar.checked = car.car.korek;
+  // trailer
+  trailerNumber.value = car.trailer.number;
+  trailerLetters.value = car.trailer.letters;
+  heightTrailer.value = car.trailer.height;
+  widthTrailer.value = car.trailer.width;
+  lengthTrailer.value = car.trailer.length;
+  korekTrailer.checked = car.trailer.korek;
+
+  // global
+  formSelect.value = car.position;
+  engCube.value = car.eng;
+  cubeCar.value = car.cube;
+  about.value = car.about;
+  preview.innerHTML =
+    car.image_url &&
+    `<img src="${car.image_url}" class="rounded-circle" alt="Preview" style="width: 50px;height: 50px;">`;
+}
+
+//////////////////////////////////
+/////////// Edit Car
+//////////////////////////////////
+async function editCar(e) {
+  e.preventDefault();
+  const newCube = {
+    car: {
+      number: carNumber.value,
+      letters: carLetters.value,
+      height: heightCar.value,
+      width: widthCar.value,
+      length: lengthCar.value,
+      korek: korekCar.checked ? true : false,
+      cubes: 0,
+    },
+    trailer: {
+      number: trailerNumber.value,
+      letters: trailerLetters.value,
+      height: heightTrailer.value,
+      width: widthTrailer.value,
+      length: lengthTrailer.value,
+      korek: korekTrailer.checked ? true : false,
+      cubes: 0,
+    },
+    cube: +cubeCar.value || cubingCalculation(),
+    createdAt: moment().locale("ar_SA").format("LLLL"),
+    image_url: imageUrl,
+    eng: engCube.value,
+    position: formSelect.value,
+    about: about.value || "لا يوجد",
+  };
+
+  if (true) {
+    try {
+      const res = await fetch(`${apiRender}/${_id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCube),
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      // window.location = "index.html";
+    } catch (err) {
+      console.log("ERORR ===> ", err);
+    }
+  }
+  create = true;
+}

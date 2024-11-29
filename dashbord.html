@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashbord</title>
+    <link rel="icon" href="images/carIcon.ico" type="image/x-icon" />
     <!-- STart Fonts  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +14,7 @@
     />
 
     <!-- // BOOTSTRAP  -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
     <!-- Castum Style -->
     <link rel="stylesheet" href="css/dashbord.css" />
     <link rel="stylesheet" href="css/style.css" />
@@ -144,7 +145,7 @@
               >
                 <label class="formFile" for="formFile">
                   <img
-                    src="images/360_F_107579101_QVlTG43Fwg9Q6ggwF436MPIBTVpaKKtb.jpg"
+                    src="images/addCar.jpg"
                     width="40px"
                     height="40px"
                     alt=""
@@ -168,7 +169,16 @@
           <h4>بيانات التكعيب</h4>
           <div class="form-group border p-3 mb-2 rounded">
             <div class="row">
-              <div class="col-md-6 mb-md-0 mb-sm-3 mb-lg-0">
+              <div class="col-md-4 mb-md-0 mb-sm-3 mb-lg-0">
+                <select class="form-select" id="form-select" dir="rtl">
+                  <option selected hidden>اختر الوظيفه</option>
+                  <option value="مهندس">مهندس</option>
+                  <option value="مساح">مساح</option>
+                  <option value="مكتب فني">مكتب فني</option>
+                  <option value="مشرف">مشرف</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-md-0 mb-sm-3 mb-lg-0">
                 <input
                   type="text"
                   class="form-control"
@@ -176,7 +186,7 @@
                   id="engCube"
                 />
               </div>
-              <div class="col-md-6 mb-md-0 mb-sm-3 mb-lg-0">
+              <div class="col-md-4 mb-md-0 mb-sm-3 mb-lg-0">
                 <input
                   type="text"
                   class="form-control"
@@ -200,6 +210,7 @@
           <button id="submit" class="btn btn-primary mt-3">
             اضاقه السياره
           </button>
+          <!-- <button class="btn btn-primary mt-3 editBtn">تعديل السياره</button> -->
         </form>
       </div>
     </section>

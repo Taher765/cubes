@@ -3,8 +3,8 @@ const details = document.querySelector(".details");
 const searchParams = new URLSearchParams(window.location.search);
 
 let _id = searchParams.get("id");
-const apiRender = "https://tset-19uo.onrender.com/cubes";
-const api = "http://localhost:3000/cubes";
+const apiRender = "http://localhost:3000/cubes";
+// const apiRender = "https://tset-19uo.onrender.com/cubes";
 
 async function getSingleCar() {
   spinerLoader("load");
@@ -30,7 +30,7 @@ function displaySingleCar(car) {
   if (car.image_url) {
     image = car.image_url;
   } else {
-    image = "";
+    image = "images/images.png";
   }
   details.innerHTML = `<div class="card mb-3">
             <div class="image-card">
@@ -121,7 +121,17 @@ function displaySingleCar(car) {
                   التكعيب الاجمالي : <span>${car.cube} </span>
                 </p>
                 <p class="card-text border p-2 rounded">
+                   الوظيفه : <span>${car.position} </span>
+                </p>
+                <p class="card-text border p-2 rounded">
                   تاريخ التكعيب : <span>${car.date}</span>
+                </p>
+                <p class="card-text border p-2 rounded">
+                  تاريخ التعديل : <span>${
+                    car.createdAt
+                      ? car.createdAt
+                      : "لم يتم التعديل عليها من قبل"
+                  }</span>
                 </p>
                 <p class="card-text border p-2 rounded">
                   ملحوظــــة : <span>${car.about}</span>
