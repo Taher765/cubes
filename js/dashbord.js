@@ -339,6 +339,7 @@ async function editCar(e) {
     about: about.value || "لا يوجد",
   };
 
+  // validation empty inputs
   if (true) {
     try {
       const res = await fetch(`${apiRender}/${_id}`, {
@@ -352,7 +353,7 @@ async function editCar(e) {
       const data = await res.json();
       console.log(data);
 
-      // window.location = "index.html";
+      window.location = "index.html";
     } catch (err) {
       console.log("ERORR ===> ", err);
     }

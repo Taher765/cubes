@@ -50,7 +50,7 @@ async function getCubes(page, limit) {
 dataPagination();
 async function dataPagination() {
   const data = await getCubes();
-  const limit = 15;
+  const limit = 20;
 
   $("#pagination").pagination({
     dataSource: new Array(+data), // تحديد مصدر البيانات
@@ -88,13 +88,13 @@ function displayCubes(cubes) {
                           <button id="deleteCar" data-car="${
                             cube.id
                           }" class="btn btn-sm btn-danger position-relative ${
-      true && "disabled "
+      false && "disabled "
     }"><i class="fa-solid fa-trash-can"></i></button>
 
                           <a href="dashbord.html?id=${
                             cube.id
                           }" id="updateCar"  class="btn btn-sm btn-success position-relative ${
-      true && "disabled "
+      false && "disabled "
     }"><i class="fa-regular fa-pen-to-square"></i></a>
                         </td>
                     </tr>
@@ -142,24 +142,3 @@ async function deletedCar(info) {
     console.log(err);
   }
 }
-/////////////////////////////////
-///////////// Edit CAR
-/////////////////////////////////
-
-// document.addEventListener("click", (e) => {
-//   if (e.target.id == "updateCar") {
-//     editCar(e.target);
-//   }
-// });
-
-// async function editCar(info) {
-//   const id = info.getAttribute("data-car");
-//   try {
-//     const res = await fetch(`${apiRender}/${id}`, {
-//       method: "PUT",
-//     });
-//     getCubes();
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
