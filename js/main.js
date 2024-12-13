@@ -2,16 +2,13 @@
 const tbody = document.querySelector("#tbody");
 const search = document.querySelector("#search");
 const searchBtn = document.querySelector("#searchBtn");
-
+const limit = 20;
 // var api
-// const apiRender = "http://localhost:3000/cubes";
-const apiRender = "https://tset-19uo.onrender.com/cubes";
+const apiRender = "http://localhost:3000/cubes";
+// const apiRender = "https://tset-19uo.onrender.com/cubes";
 
-// Start Loading Page
+document.addEventListener("load", dataPagination());
 
-addEventListener("load", () => {
-  // getCubes(1);
-});
 //////////////////////////////////////;
 /////////// START SPINAER LOADER
 /////////////////////////////////////;
@@ -24,7 +21,7 @@ function spinerLoader(status) {
 //////////////////////////////////////;
 /// START FETCH DATA FROM THE SERVER
 /////////////////////////////////////;
-async function getCubes(page, limit) {
+async function getCubes(page, limit = 20) {
   // Spiner Loader // Loading
   spinerLoader("load");
   try {
@@ -47,14 +44,12 @@ async function getCubes(page, limit) {
 /////////// START PAGINATION
 /////////////////////////////////////;
 
-dataPagination();
 async function dataPagination() {
   const data = await getCubes();
-  const limit = 20;
 
   $("#pagination").pagination({
     dataSource: new Array(+data), // تحديد مصدر البيانات
-    pageSize: limit, // عدد العناصر في كل صفحة
+    pageSize: limit || 20, // عدد العناصر في كل صفحة
     pageRange: 3, // عدد الروابط حول الصفحة الحالية
     showPageNumbers: true, // إظهار أرقام الصفحات
     showPrevious: true, // إظهار زر "السابق"
@@ -110,7 +105,7 @@ searchBtn.addEventListener("click", searchCar);
 async function searchCar() {
   try {
     if (search.value == "") {
-      getCubes();
+      dataPagination();
     } else {
       const res = await fetch(apiRender + `?car.number=${search.value}`);
       const data = await res.json();
@@ -134,10 +129,10 @@ async function deletedCar(info) {
   const id = info.getAttribute("data-car");
   try {
     info.parentElement.parentElement.remove();
-    const res = await fetch(`${apiRender}/${id}`, {
+    await fetch(`${apiRender}/${id}`, {
       method: "DELETE",
     });
-    getCubes();
+    dataPagination();
   } catch (err) {
     console.log(err);
   }
